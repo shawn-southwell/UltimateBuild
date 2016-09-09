@@ -11,4 +11,4 @@ var configSchema = new Schema({
 
 })
 
-module.exports = 'configModel';
+module.exports = mongoose.model('ConfigCollection', configSchema);

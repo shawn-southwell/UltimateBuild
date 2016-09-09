@@ -1,4 +1,5 @@
 var User = require('./../models/userModel');
+var User = require('./../models/configModel.js');
 var cookieController = require('./../util/cookieController');
 var sessionController = require('sessionController');
 var userController = {};
