@@ -12,6 +12,7 @@ app.use(express.static('../client/'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
 app.get('/', function(req,res){
     res.sendFile(__dirname + '/client/src/index.html')
 })
@@ -20,6 +21,8 @@ app.get('/', function(req,res){
 //setSSIDcookie,
 //start a session
 //send a 200 response to the client
+//on success, send client object 
+//with client username and username value
 app.post('/signup',
         userController.createUser,
         cookieController.setSSIDcookie,
