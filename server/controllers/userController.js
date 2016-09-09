@@ -15,9 +15,9 @@ userController.createUser = function(req, res, next) {
         console.error(err);
         console.log('error in creating user');
       } else {
-        console.log('in else of creation')
         res.userId = createdUser['_id'];
         res.USERNAME = req.body.username;
+        console.log('The new user has id', res.userId, 'and username is: ',res.USERNAME);
         next();   
     }
   })
@@ -26,12 +26,15 @@ userController.createUser = function(req, res, next) {
 userController.verifyUser = function(req, res, next) {
   var password = req.body.password;
   var username = req.body.username;
-  User.findOne({ username: username }, (err, person) => {
+  console.log('user credentials',username,password)
+  User.findOne({username: username}, (err, person) => {
     if (err) {
       console.error('Woah, so sad, there was an error verifying the user. :[', err);
       console.log('error in verification');
     } else {
-      if (person[password] === password) {
+      if (person['password'] === password) {
+        res.userId = person['_id'];
+        console.log('user verified', person);
         next();
 
       }

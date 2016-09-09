@@ -39,14 +39,14 @@ app.post('/deleteconfig', userController.deleteConfig);
 app.post('/signup',
   userController.createUser,
   cookieController.setSSIDCookie,
-  // sessionController.startSession,
+  sessionController.startSession,
   (req, res) => {console.log('before end'); res.end();});
 
 
 app.post('/login',
-  // userController.verifyUser,
-  // cookieController, setSSIDcookie,
-  // sessionController.startSession,
+  userController.verifyUser,
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
   (req, res) => res.end()
 )
 
