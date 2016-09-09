@@ -1,6 +1,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var reqConfig = {
+  entry: 'entry',
+  output: 'output',
+  test: 'test',
+  loader: 'loader',
+  exclude: 'exclude',
+  presets: 'presets',
+  refID: 'refID',
+};
+
 var configSchema = new Schema({
   entry: { type: String, required: true },
   output: { type: String, required: true },
@@ -8,7 +18,7 @@ var configSchema = new Schema({
   loader: { type: String, required: true },
   exclude: { type: String, required: true },
   presets: { type: String, required: true },
-
-})
+  refID: { type: String, required: true },
+});
 
 module.exports = mongoose.model('ConfigCollection', configSchema);
