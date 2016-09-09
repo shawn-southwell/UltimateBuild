@@ -1,0 +1,25 @@
+
+var cookieController = {};
+cookieController.setCookie = setCookie;
+cookieController.setSSIDCookie = setSSIDCookie;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = cookieController;
