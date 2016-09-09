@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const transpileConfig = require('./controllers/transpile_config_form.js');
+const configTranspiler = require('./controllers/transpileController.js');
 const userController = require('./controllers/userController.js');
 const cookieController = require('./util/cookieController.js');
 const sessionController = require('./controllers/sessionController.js');
@@ -41,5 +41,14 @@ app.post('/login',
 app.post('/logout',
   userController.verifyUser,
   sessionController.endSession)
+
+//Config Routes//
+app.post('/createconfig', userController.createConfig);
+
+app.post('/configlist', userController.configList);
+
+app.post('/configbyid', userController.findConfigByID);
+
+app.post('/deleteconfig', userController.deleteConfig);
 
 app.listen(9090, () => console.log('listening on port 9090'));
