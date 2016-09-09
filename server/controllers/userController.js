@@ -32,6 +32,7 @@ userController.verifyUser = function(req, res, next) {
     } else {
       if (person['password'] === password) {
         res.userId = person['_id'];
+        res.USERNAME = username;
         console.log('user verified', person);
         next();
 

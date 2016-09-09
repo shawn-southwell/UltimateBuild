@@ -26,25 +26,20 @@ app.post('/configbyid', userController.findConfigByID);
 
 app.post('/deleteconfig', userController.deleteConfig);
 
-//app.post to signup should:
-//creater a user
-//setSSIDcookie,
-//start a session
-//send a 200 response to the client
-//on success, send client object 
-//with client username and username value
 app.post('/signup',
   userController.createUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => {console.log('before end'); res.end();});
-
+  (req, res) => {res.json({username:res.USERNAME});});
 
 app.post('/login',
   userController.verifyUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => res.end()
-)
+  (req, res) => {res.json({username:res.USERNAME});})
+
+app.post('/logout',
+  userController.verifyUser,
+  sessionController.endSession)
 
 app.listen(9090, () => console.log('listening on port 9090'));
