@@ -3,6 +3,8 @@ var cookieController = require('./../util/cookieController.js');
 var configModel = require('./../models/configModel.js');
 var cookieController = require('./../util/cookieController');
 var sessionController = require('./sessionController.js');
+var configTranspiler = require('./transpileController.js');
+
 var userController = {};
 
 userController.createUser = function(req, res, next) {
@@ -40,39 +42,59 @@ userController.verifyUser = function(req, res, next) {
   })
 }
 
-userController.createConfig = function(req, res) {
-  console.log('req findconfigbyid', req.body);
-  let newConfig = req.body;
-  //find record then send as response.
-  configModel.create(newConfig, (data) => {
+//Config Controllers//
+//create new user config. 
+userController.createConfig = function(req, res) { //create config
+  let newConfig = req.body; //set newconfig as config enterd by user 
+  configModel.create(newConfig, (data) => { //create new record in db.
     res.send(data);
-  })
+  });
+  res.end();
+};
+
+userController.configList = function(req, res) { //query database for all configs matching user's id.
+  // console.log('ssid', req.cookies.ssid);
+  configModel.find({ refID: req.cookies.ssid }, (err, data) => { //find record then send as response.
+    if (err) {
+      console.log('in error block')
+      console.log(err);
+    } else {
+      console.log('data', data)
+      res.json(data); //send returned data as response. 
+    }
+  });
 };
 
 //find config by id. 
-//incomplete, need database implemented before testing. 
 userController.findConfigByID = function(req, res) {
-  console.log('req findconfigbyid', req.body);
-  res.end();
-  //find record then send as response.
-  configModel.findOne(req.body, (data) => {
-    console.log('data', data)
-    res.json(data);
+  let conID = req.body._id
+  configModel.findOne({ _id: conID }, (err, data) => { //find record then send as response.
+    if (err) {
+      console.log('in error block')
+      console.log(err);
+    } else {
+      let configJSON = configTranspiler(data)
+      console.log(data);
+      console.log(configJSON);
+      res.send(configJSON); //send returned data as response. 
+    }
   });
 };
 
 //deletes config from database. 
-//incomplete, need database implemented before testing. 
 userController.deleteConfig = function(req, res, next) {
   let record = req.body.userID;
-  console.log('req', req.body.data)
-    //find record then delete.
-  configModel.findOne({}, (data) => {
-    res.send(record + 'deleted');
-    next();
+  console.log(record)
+    // find record then delete.
+  configModel.remove({ _id: record }, (err, data) => {
+    if (err) {
+      console.log('in error block')
+      console.log(err);
+    } else {
+      console.log('record deleted')
+    }
   });
-  //check database to confirm it is deleted. will remove this later. 
-
+  res.end();
 };
 
 module.exports = userController;
