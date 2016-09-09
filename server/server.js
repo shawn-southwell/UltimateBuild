@@ -12,25 +12,14 @@ app.use(express.static('../client/'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-<<<<<<< HEAD
-
 app.get('/', function(req,res){
     res.sendFile(__dirname + '/client/src/index.html')
 })
-||||||| merged common ancestors
-app.get('/', function(req,res){
-    res.sendFile(__dirname + '/client/src/index.html')
-})
-=======
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/client/src/index.html')
-});
 
 app.get('/configbyid', userController.findConfigByID);
 
 app.post('/deleteconfig', userController.deleteConfig);
 
->>>>>>> 5a461b38ddfbdd0d3ebcffccd2ba79168868b685
 //app.post to signup should:
 //creater a user
 //setSSIDcookie,
