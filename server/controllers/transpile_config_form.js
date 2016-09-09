@@ -1,3 +1,5 @@
+'use strict';
+
 let transpileConfig = {}
 
 transpileConfig.transpileCon = function(configForm) {
