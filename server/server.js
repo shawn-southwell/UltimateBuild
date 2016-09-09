@@ -20,23 +20,17 @@ app.get('/', function(req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 })
 
-app.post('/createconfig', userController.createConfig);
-
-app.post('/configbyid', userController.findConfigByID);
-
-app.post('/deleteconfig', userController.deleteConfig);
-
 app.post('/signup',
   userController.createUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => {res.json({username:res.USERNAME});});
+  (req, res) => res.json({username:res.USERNAME}));
 
 app.post('/login',
   userController.verifyUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => {res.json({username:res.USERNAME});})
+  (req, res) => res.json({username:res.USERNAME}))
 
 app.post('/logout',
   userController.verifyUser,

@@ -28,8 +28,12 @@ userController.verifyUser = function(req, res, next) {
   var username = req.body.username;
   console.log('user credentials',username,password)
   User.findOne({username: username}, (err, person) => {
+    if (!person) {
+      console.log('HOMIE CANT LOGIN IF HE AINT SIGNED UP')
+      res.redirect('/'); 
+      return;
+    }
     if (err) {
-      console.error('Woah, so sad, there was an error verifying the user. :[', err);
       console.log('error in verification');
     } else {
       if (person['password'] === password) {
@@ -37,7 +41,6 @@ userController.verifyUser = function(req, res, next) {
         res.USERNAME = username;
         console.log('user verified', person);
         next();
-
       }
     }
   })
