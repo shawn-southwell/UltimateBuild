@@ -58,4 +58,4 @@ userController.verifyUser = function(req, res, next) {
   })
 }
 
-module.exports = 'userController';
+module.exports = userController;

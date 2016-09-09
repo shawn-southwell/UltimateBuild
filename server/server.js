@@ -9,12 +9,13 @@ const userController = require('./controllers/userController.js');
 const cookieController = require('./util/cookieController');
 const sessionController = require('./controllers/sessionController.js');
 
-app.use(express.static('../client/'));
+app.use(express.static(path.resolve(__dirname + '../client/')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get('/', function(req,res){
-    res.sendFile(__dirname + '/client/src/index.html')
+    res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+
 })
 
 // app.get('/configbyid', userController.findConfigByID);
@@ -40,4 +41,4 @@ app.post('/login',
   (req, res) => res.end(200)
 )
 
-app.listen(3000, () => console.log('listening on port 3000'));
+app.listen(9090, () => console.log('listening on port 9090'));
