@@ -13,13 +13,13 @@ app.use(express.static('../client/'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get('/', function(req,res){
-    res.sendFile(__dirname + '/client/src/index.html')
+app.get('/', function(req, res) {
+  res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 })
 
-// app.get('/configbyid', userController.findConfigByID);
+app.post('/configbyid', userController.findConfigByID);
 
-// app.post('/deleteconfig', userController.deleteConfig);
+app.post('/deleteconfig', userController.deleteConfig);
 
 //app.post to signup should:
 //creater a user
