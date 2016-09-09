@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const transpileConfig = require('./controllers/transpile_config_form.js');
+const configTranspiler = require('./controllers/transpileController.js');
 const userController = require('./controllers/userController.js');
 const cookieController = require('./util/cookieController');
 const sessionController = require('./controllers/sessionController.js');
@@ -19,12 +19,6 @@ app.use(cookieParser());
 app.get('/', function(req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 })
-
-app.post('/createconfig', userController.createConfig);
-
-app.post('/configbyid', userController.findConfigByID);
-
-app.post('/deleteconfig', userController.deleteConfig);
 
 //app.post to signup should:
 //creater a user
@@ -47,5 +41,14 @@ app.post('/login',
   // sessionController.startSession,
   (req, res) => res.end(200)
 )
+
+//Config Routes//
+app.post('/createconfig', userController.createConfig);
+
+app.post('/configlist', userController.configList);
+
+app.post('/configbyid', userController.findConfigByID);
+
+app.post('/deleteconfig', userController.deleteConfig);
 
 app.listen(9090, () => console.log('listening on port 9090'));
