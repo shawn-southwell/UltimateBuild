@@ -7,7 +7,6 @@ var userController = {};
 
 userController.createUser = function(req, res, next) {
     var userObj = req.body;
-    console.log(userObj);
     User.create(userObj, (err,createdUser) => {
     if (err) {
         console.log('in error block')
@@ -17,6 +16,7 @@ userController.createUser = function(req, res, next) {
         console.log('in else of creation')
         res.userId = createdUser['_id'];
         res.USERNAME = req.body.username;
+        console.log(res.userId,res.USERNAME);
         next();   
     }
 })

@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const transpileConfig = require('./controllers/transpile_config_form.js');
 const userController = require('./controllers/userController.js');
-const cookieController = require('./util/cookieController');
+const cookieController = require('./util/cookieController.js');
 const sessionController = require('./controllers/sessionController.js');
 
 
@@ -35,15 +35,14 @@ app.get('/', function(req,res){
 //with client username and username value
 app.post('/signup',
   userController.createUser,
-  // cookieController.setSSIDcookie,
+  cookieController.setSSIDCookie,
   // sessionController.startSession,
-  (req, res) => {
-    console.log('before res end');res.end(200)});
+  (req, res) => {console.log('before end'); res.end();});
 app.post('/login',
   // userController.verifyUser,
   // cookieController, setSSIDcookie,
   // sessionController.startSession,
-  (req, res) => res.end(200)
+  (req, res) => res.end()
 )
 
 app.listen(9090, () => console.log('listening on port 9090'));
