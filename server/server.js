@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -6,7 +7,7 @@ const mongoose = require('mongoose');
 const transpileConfig = require('./controllers/transpile_config_form.js');
 const userController = require('./controllers/userController.js');
 const cookieController = require('./util/cookieController');
-const sessionController = require('./controllers/sessionController');
+const sessionController = require('./controllers/sessionController.js');
 
 app.use(express.static('../client/'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,9 +17,9 @@ app.get('/', function(req,res){
     res.sendFile(__dirname + '/client/src/index.html')
 })
 
-app.get('/configbyid', userController.findConfigByID);
+// app.get('/configbyid', userController.findConfigByID);
 
-app.post('/deleteconfig', userController.deleteConfig);
+// app.post('/deleteconfig', userController.deleteConfig);
 
 //app.post to signup should:
 //creater a user
@@ -28,14 +29,14 @@ app.post('/deleteconfig', userController.deleteConfig);
 //on success, send client object 
 //with client username and username value
 app.post('/signup',
-  userController.createUser,
-  cookieController.setSSIDcookie,
-  sessionController.startSession,
+  // userController.createUser,
+  // cookieController.setSSIDcookie,
+  // sessionController.startSession,
   (req, res) => res.end(200));
 app.post('/login',
-  userController.verifyUser,
-  cookieController, setSSIDcookie,
-  sessionController.startSession,
+  // userController.verifyUser,
+  // cookieController, setSSIDcookie,
+  // sessionController.startSession,
   (req, res) => res.end(200)
 )
 

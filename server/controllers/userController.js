@@ -2,7 +2,7 @@ var User = require('./../models/userModel.js');
 var cookieController = require('./../util/cookieController.js');
 var Config = require('./../models/configModel.js');
 var cookieController = require('./../util/cookieController');
-var sessionController = require('sessionController');
+var sessionController = require('./sessionController.js');
 var userController = {};
 
 userController.createUser = function(req, res, next) {
