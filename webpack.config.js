@@ -3,7 +3,7 @@ var webpack = require('webpack');
  
 module.exports = {
   //consider changing the entry point
-  entry: './main.js',
+  entry: './client/src/app.jsx',
   output: { path: __dirname, filename: 'bundle.js' },
   module: {
     loaders: [
