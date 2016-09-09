@@ -6,18 +6,17 @@ var sessionController = require('./sessionController.js');
 var userController = {};
 
 userController.createUser = function(req, res, next) {
-  var userObj = req.body;
-  console.log(userObj);
-  User.create(userObj, (err, createdUser) => {
-    if (err) {
-      console.log('in error block')
-      console.error(err);
-      console.log('error in creating user');
-    } else {
-      console.log('in else of creation')
-      res.userId = createdUser['_id'];
-      res.USERNAME = req.body.username;
-      next();
+    var userObj = req.body;
+    User.create(userObj, (err,createdUser) => {
+      if (err) {
+        console.log('in error block')
+        console.error(err);
+        console.log('error in creating user');
+      } else {
+        console.log('in else of creation')
+        res.userId = createdUser['_id'];
+        res.USERNAME = req.body.username;
+        next();   
     }
   })
 };
