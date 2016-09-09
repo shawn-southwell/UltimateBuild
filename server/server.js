@@ -9,7 +9,6 @@ const userController = require('./controllers/userController.js');
 const cookieController = require('./util/cookieController.js');
 const sessionController = require('./controllers/sessionController.js');
 
-
 const mongoURI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost/test' : 'mongodb://localhost/dev';
 mongoose.connect(mongoURI);
 
@@ -17,14 +16,15 @@ app.use(express.static(path.resolve(__dirname + '../client/')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get('/', function(req,res){
-    res.sendFile(path.resolve(__dirname + '/../client/index.html'));
-
+app.get('/', function(req, res) {
+  res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 })
 
-// app.get('/configbyid', userController.findConfigByID);
+app.post('/createconfig', userController.createConfig);
 
-// app.post('/deleteconfig', userController.deleteConfig);
+app.post('/configbyid', userController.findConfigByID);
+
+app.post('/deleteconfig', userController.deleteConfig);
 
 //app.post to signup should:
 //creater a user
@@ -38,6 +38,8 @@ app.post('/signup',
   cookieController.setSSIDCookie,
   // sessionController.startSession,
   (req, res) => {console.log('before end'); res.end();});
+
+
 app.post('/login',
   // userController.verifyUser,
   // cookieController, setSSIDcookie,
