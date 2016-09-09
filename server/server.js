@@ -20,5 +20,15 @@ app.get('/', function(req,res){
 //setSSIDcookie,
 //start a session
 //send a 200 response to the client
-app.post('/signup', userController.createUser,  )
+app.post('/signup',
+        userController.createUser,
+        cookieController.setSSIDcookie,
+        sessionController.startSession,
+        (req, res) => res.end(200));
+app.post('/login',
+        userController.verifyUser,
+        cookieController,setSSIDcookie,
+        sessionController.startSession,
+        (req,res) => res.end(200)
+) 
 app.listen(3000,() => console.log('listening on port 3000'));
