@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const configTranspiler = require('./controllers/transpileController.js');
 const userController = require('./controllers/userController.js');
-const cookieController = require('./util/cookieController');
+const cookieController = require('./util/cookieController.js');
 const sessionController = require('./controllers/sessionController.js');
 
 const mongoURI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost/test' : 'mongodb://localhost/dev';
@@ -29,17 +29,16 @@ app.get('/', function(req, res) {
 //with client username and username value
 app.post('/signup',
   userController.createUser,
-  // cookieController.setSSIDcookie,
-  // sessionController.startSession,
-  (req, res) => {
-    console.log('before res end');
-    res.end(200)
-  });
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
+  (req, res) => {console.log('before end'); res.end();});
+
+
 app.post('/login',
-  // userController.verifyUser,
-  // cookieController, setSSIDcookie,
-  // sessionController.startSession,
-  (req, res) => res.end(200)
+  userController.verifyUser,
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
+  (req, res) => res.end()
 )
 
 //Config Routes//

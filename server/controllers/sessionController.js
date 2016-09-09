@@ -8,6 +8,7 @@ sessionController.isLoggedIn = function(req, res, next){
             console.error('There was an error in sessionController.isLoggedIn', err);
             return;
         } else {
+            console.log('this person exists in the database',person);
             next();
         }
     })
@@ -16,6 +17,7 @@ sessionController.isLoggedIn = function(req, res, next){
 sessionController.startSession = function(req,res,next) {
   Session.create({cookieId: res.userId},function(err,sessionCreated){
   	if (err) {
+        console.log('inside start session')
   		console.error(err);
   	} else {
   		next();
