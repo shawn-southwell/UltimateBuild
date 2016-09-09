@@ -20,26 +20,21 @@ app.get('/', function(req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 })
 
-//app.post to signup should:
-//creater a user
-//setSSIDcookie,
-//start a session
-//send a 200 response to the client
-//on success, send client object 
-//with client username and username value
 app.post('/signup',
   userController.createUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => {console.log('before end'); res.end();});
-
+  (req, res) => res.json({username:res.USERNAME}));
 
 app.post('/login',
   userController.verifyUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => res.end()
-)
+  (req, res) => res.json({username:res.USERNAME}))
+
+app.post('/logout',
+  userController.verifyUser,
+  sessionController.endSession)
 
 //Config Routes//
 app.post('/createconfig', userController.createConfig);
