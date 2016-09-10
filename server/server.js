@@ -24,25 +24,25 @@ app.post('/signup',
   userController.createUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => res.json({username:res.USERNAME}));
+  (req, res) => res.json({ username: res.USERNAME }));
 
 app.post('/login',
   userController.verifyUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => res.json({username:res.USERNAME}))
+  (req, res) => res.json({ username: res.USERNAME }))
 
 app.post('/logout',
- sessionController.endSession,
- (req, res) => res.end())
+  sessionController.endSession,
+  (req, res) => res.end())
 
 //Config Routes//
 app.post('/createconfig', userController.createConfig);
 
-app.post('/configlist', userController.configList);
+app.get('/configlist', userController.configList);
 
-app.post('/configbyid', userController.findConfigByID);
+app.get('/configbyid/:conID', userController.findConfigByID);
 
-app.post('/deleteconfig', userController.deleteConfig);
+app.delete('/deleteconfig/:conID', userController.deleteConfig);
 
 app.listen(9090, () => console.log('listening on port 9090'));
