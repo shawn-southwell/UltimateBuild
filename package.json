@@ -4,8 +4,8 @@
   "description": "Wonderful tool for WebPack config file generation.",
   "main": "./server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/.bin/nodemon ./server/server.js",
+    "test": "mocha",
     "build": "./node_modules/.bin/webpack -w"
   },
   "repository": {
@@ -44,9 +44,14 @@
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
     "cookie-parser": "^1.4.3",
     "mocha": "^3.0.2",
+<<<<<<< HEAD
     "nodemon": "^1.10.2",
+=======
+    "supertest": "^2.0.0",
+>>>>>>> master
     "webpack": "^1.13.2"
   }
 }
