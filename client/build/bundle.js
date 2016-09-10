@@ -27210,6 +27210,8 @@
 
 	    _this.state = { ssid: _reactCookie2.default.load('ssid') };
 	    _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
+	    _this.handleLogout = _this.handleLogout.bind(_this);
+	    //this.setHomeState = this.setHomeState.bind(this);
 	    return _this;
 	  }
 
@@ -27233,18 +27235,19 @@
 	  }, {
 	    key: 'handleLogout',
 	    value: function handleLogout() {
+	      var _this2 = this;
+
 	      // make ajax post call to server to logout user
 	      console.log('in handleLogout');
-	      /*
-	      var postUrl = '/logout';        
-	      $.post(postUrl, {})
-	        .then((data)=> {
-	          // HACK: needed to call setHomeState to allow updating of setState and route redirect
-	          this.setHomeState({ ssid: undefined }); // clear out ssid in state
-	          //this.props.history.push('/dashboard');
-	        })
-	        .catch((err) => {console.log('err', err)});
-	      */
+
+	      var postUrl = '/logout';
+	      _jquery2.default.post(postUrl, {}).then(function () {
+	        // HACK: needed to call setHomeState to allow updating of setState and route redirect
+	        _this2.setHomeState({ ssid: undefined }); // clear out ssid in state
+	        //this.props.history.push('/dashboard');
+	      }).catch(function (err) {
+	        console.log('err', err);
+	      });
 	    }
 
 	    // HACK: needed to declare a separate function to setState so that can also redirect to new route
@@ -27260,7 +27263,7 @@
 	  }, {
 	    key: 'handleFormSubmit',
 	    value: function handleFormSubmit(e) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      e.preventDefault();
 
@@ -27284,8 +27287,8 @@
 	      // create new user or login user by making appropriate ajax post call
 	      _jquery2.default.post(postUrl, user).then(function (data) {
 	        // HACK: needed to call setHomeState to allow updating of setState and route redirect
-	        _this2.setHomeState({ ssid: _reactCookie2.default.load('ssid') });
-	        _this2.props.history.push('/dashboard');
+	        _this3.setHomeState({ ssid: _reactCookie2.default.load('ssid') });
+	        _this3.props.history.push('/dashboard');
 	      }).catch(function (err) {
 	        console.log('err', err);
 	      });
@@ -27293,18 +27296,18 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      // Note: {childrenWithMoreProps} is a placeholder container, similar to ng-view, for displaying the content of different children routes
 
 	      var childrenWithMoreProps = _react2.default.Children.map(this.props.children, function (child) {
 	        if (child.type === _signup2.default || child.type === _login2.default) {
 	          return _react2.default.cloneElement(child, {
-	            handleFormSubmit: _this3.handleFormSubmit
+	            handleFormSubmit: _this4.handleFormSubmit
 	          });
 	        } else if (child.type === _logout2.default) {
 	          return _react2.default.cloneElement(child, {
-	            handleLogout: _this3.handleLogout
+	            handleLogout: _this4.handleLogout
 	          });
 	        } else {
 	          return child;
@@ -27360,10 +27363,7 @@
 	exports.default = Home;
 
 /***/ },
-/* 236 */,
-/* 237 */,
-/* 238 */,
-/* 239 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var cookie = __webpack_require__(237);
@@ -27516,10 +27516,8 @@
 
 
 /***/ },
-
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
+/* 237 */
+/***/ function(module, exports) {
 
 	/*!
 	 * cookie
@@ -27680,8 +27678,7 @@
 
 
 /***/ },
-/* 241 */,
-/* 242 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*eslint-disable no-unused-vars*/
@@ -37996,6 +37993,13 @@
 	  }
 
 	  _createClass(Dashboard, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      // make ajax call to get list of saved configs
+	      // assume user is authenicated for now
+
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(

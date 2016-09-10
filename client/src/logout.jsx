@@ -5,7 +5,7 @@ class Logout extends Component {
 
   componentDidMount() {
     // invoke the handleLogout function passed down from home parent
-    this.props.handleLogout();  
+    this.props.handleLogout();
   }
 
   render() {
