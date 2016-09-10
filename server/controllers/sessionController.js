@@ -25,4 +25,15 @@ sessionController.startSession = function(req,res,next) {
   });
 };
 
+sessionController.endSession = function(req, res){
+    Session.remove({cookieId: res.userId}, function(err, sessionRemoved){
+        if (err){
+            console.log('there was an error removing this session');
+        } else {
+            console.log('record deleted');
+        } 
+    })
+    res.end();
+}
+
 module.exports = sessionController;

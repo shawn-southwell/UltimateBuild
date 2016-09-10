@@ -6,7 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const transpileConfig = require('./controllers/transpile_config_form.js');
+const configTranspiler = require('./controllers/transpileController.js');
 const userController = require('./controllers/userController.js');
 const cookieController = require('./util/cookieController.js');
 const sessionController = require('./controllers/sessionController.js');
@@ -23,31 +23,29 @@ app.get('/', function(req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 })
 
-app.post('/createconfig', userController.createConfig);
-
-app.post('/configbyid', userController.findConfigByID);
-
-app.post('/deleteconfig', userController.deleteConfig);
-
-//app.post to signup should:
-//creater a user
-//setSSIDcookie,
-//start a session
-//send a 200 response to the client
-//on success, send client object 
-//with client username and username value
 app.post('/signup',
   userController.createUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => {console.log('before end'); res.end();});
-
+  (req, res) => res.json({username:res.USERNAME}));
 
 app.post('/login',
   userController.verifyUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  (req, res) => res.end()
-)
+  (req, res) => res.json({username:res.USERNAME}))
+
+app.post('/logout',
+  userController.verifyUser,
+  sessionController.endSession)
+
+//Config Routes//
+app.post('/createconfig', userController.createConfig);
+
+app.post('/configlist', userController.configList);
+
+app.post('/configbyid', userController.findConfigByID);
+
+app.post('/deleteconfig', userController.deleteConfig);
 
 app.listen(9090, () => console.log('listening on port 9090'));
