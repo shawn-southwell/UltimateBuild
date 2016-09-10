@@ -66,14 +66,14 @@ userController.verifyUser = function(req, res, next) {
 userController.createConfig = function(req, res) { //create config
   let newConfig = req.body; //set newconfig as config enterd by user 
   configModel.create(newConfig, (data) => { //create new record in db.
-    res.send(data);
+    res.json(data);
   });
   res.end();
 };
 
 userController.configList = function(req, res) { //query database for all configs matching user's id.
-  console.log('id', req.params.userID);
-  let userID = req.params.userID;
+  // console.log('id', req.cookies.ssid);
+  let userID = req.cookies.ssid;
   configModel.find({ refID: userID }, (err, data) => { //find record then send as response.
     if (err) {
       console.log('in error block')

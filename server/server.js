@@ -33,13 +33,13 @@ app.post('/login',
   (req, res) => res.json({ username: res.USERNAME }))
 
 app.post('/logout',
- sessionController.endSession,
- (req, res) => res.end())
+  sessionController.endSession,
+  (req, res) => res.end())
 
 //Config Routes//
 app.post('/createconfig', userController.createConfig);
 
-app.get('/configlist/:userID', userController.configList);
+app.get('/configlist', userController.configList);
 
 app.get('/configbyid/:conID', userController.findConfigByID);
 
