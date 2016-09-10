@@ -16,25 +16,3 @@ describe('Testing user related routes and controllers', () => {
     });
   });
 });
-describe('Testing configuration related routes and controllers', () => {
-  describe('/creatconfig', () => {
-  describe('POST', () => {
-    it('responds to valid request with 200 status and application/json content type', done => {
-      const configTemplate = {
-            entry: 'entry',
-            output: 'output',
-            test: 'test',
-            loader: 'loader',
-            exclude: 'exclude',
-            presets: 'presets',
-            refID: 'refID',
-          };
-      request(HOST)
-        .post('/createconfig')
-        .send(configTemplate)
-        .expect('Content-Type', /application\/json/)
-        .expect(200, done);
-      });
-    });
-  });
-});
