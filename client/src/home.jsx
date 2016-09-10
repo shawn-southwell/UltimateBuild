@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import Cookie from 'react-cookie';
 import $ from 'jquery';
 import Signup from './signup.jsx';
+import Login from './login.jsx';
+import Logout from './logout.jsx';
 
 
 class Home extends Component {
@@ -23,11 +25,28 @@ class Home extends Component {
     }
   }
 
+  // Define the logout handling
+  handleLogout() {
+    // make ajax post call to server to logout user
+    console.log('in handleLogout');
+    /*
+    var postUrl = '/logout';        
+    $.post(postUrl, {})
+      .then((data)=> {
+        // HACK: needed to call setHomeState to allow updating of setState and route redirect
+        this.setHomeState({ ssid: undefined }); // clear out ssid in state
+        //this.props.history.push('/dashboard');
+      })
+      .catch((err) => {console.log('err', err)});
+    */
+  }
+
   // HACK: needed to declare a separate function to setState so that can also redirect to new route
   setHomeState(newStateObj) {
     this.setState(newStateObj);
   }
 
+  // Define event handler for onsubmit for signup and login forms
   handleFormSubmit(e) {
     e.preventDefault();
 
@@ -61,9 +80,13 @@ class Home extends Component {
     // Note: {childrenWithMoreProps} is a placeholder container, similar to ng-view, for displaying the content of different children routes
     
     var childrenWithMoreProps = React.Children.map(this.props.children, (child) => {
-      if(child.type === Signup) {
+      if(child.type === Signup || child.type === Login) {
         return React.cloneElement(child, {
           handleFormSubmit: this.handleFormSubmit
+        });
+      } else if(child.type === Logout) {
+        return React.cloneElement(child, {
+          handleLogout: this.handleLogout
         });
       } else {
         return child;
@@ -74,9 +97,20 @@ class Home extends Component {
       <div>
         <h2>Home</h2>
         <ul>
-          <li><Link to="/signup">Signup</Link></li>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/dashboard">Dashboard</Link></li>
+          <li>
+          {this.state.ssid ? (
+            <Link to="/logout">Logout</Link>
+          ) : (
+           <Link to="/signup">Signup</Link>
+          )}  
+          </li>
+          <li>
+          {this.state.ssid ? (
+            <Link to="/dashboard">Dashboard</Link>
+          ) : (
+           <Link to="/login">Login</Link>
+          )}   
+          </li>
         </ul>
          {childrenWithMoreProps}
       </div>

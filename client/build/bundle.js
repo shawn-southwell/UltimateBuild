@@ -70,6 +70,10 @@
 
 	var _login2 = _interopRequireDefault(_login);
 
+	var _logout = __webpack_require__(244);
+
+	var _logout2 = _interopRequireDefault(_logout);
+
 	var _dashboard = __webpack_require__(241);
 
 	var _dashboard2 = _interopRequireDefault(_dashboard);
@@ -111,6 +115,7 @@
 	          { path: '/', component: _home2.default },
 	          _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _signup2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _login2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: '/logout', component: _logout2.default }),
 	          _react2.default.createElement(
 	            _reactRouter.Route,
 	            { path: '/dashboard', component: _dashboard2.default },
@@ -27179,6 +27184,14 @@
 
 	var _signup2 = _interopRequireDefault(_signup);
 
+	var _login = __webpack_require__(240);
+
+	var _login2 = _interopRequireDefault(_login);
+
+	var _logout = __webpack_require__(244);
+
+	var _logout2 = _interopRequireDefault(_logout);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27215,6 +27228,25 @@
 	      }
 	    }
 
+	    // Define the logout handling
+
+	  }, {
+	    key: 'handleLogout',
+	    value: function handleLogout() {
+	      // make ajax post call to server to logout user
+	      console.log('in handleLogout');
+	      /*
+	      var postUrl = '/logout';        
+	      $.post(postUrl, {})
+	        .then((data)=> {
+	          // HACK: needed to call setHomeState to allow updating of setState and route redirect
+	          this.setHomeState({ ssid: undefined }); // clear out ssid in state
+	          //this.props.history.push('/dashboard');
+	        })
+	        .catch((err) => {console.log('err', err)});
+	      */
+	    }
+
 	    // HACK: needed to declare a separate function to setState so that can also redirect to new route
 
 	  }, {
@@ -27222,6 +27254,9 @@
 	    value: function setHomeState(newStateObj) {
 	      this.setState(newStateObj);
 	    }
+
+	    // Define event handler for onsubmit for signup and login forms
+
 	  }, {
 	    key: 'handleFormSubmit',
 	    value: function handleFormSubmit(e) {
@@ -27263,9 +27298,13 @@
 	      // Note: {childrenWithMoreProps} is a placeholder container, similar to ng-view, for displaying the content of different children routes
 
 	      var childrenWithMoreProps = _react2.default.Children.map(this.props.children, function (child) {
-	        if (child.type === _signup2.default) {
+	        if (child.type === _signup2.default || child.type === _login2.default) {
 	          return _react2.default.cloneElement(child, {
 	            handleFormSubmit: _this3.handleFormSubmit
+	          });
+	        } else if (child.type === _logout2.default) {
+	          return _react2.default.cloneElement(child, {
+	            handleLogout: _this3.handleLogout
 	          });
 	        } else {
 	          return child;
@@ -27286,7 +27325,11 @@
 	          _react2.default.createElement(
 	            'li',
 	            null,
-	            _react2.default.createElement(
+	            this.state.ssid ? _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/logout' },
+	              'Logout'
+	            ) : _react2.default.createElement(
 	              _reactRouter.Link,
 	              { to: '/signup' },
 	              'Signup'
@@ -27295,19 +27338,14 @@
 	          _react2.default.createElement(
 	            'li',
 	            null,
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/login' },
-	              'Login'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            _react2.default.createElement(
+	            this.state.ssid ? _react2.default.createElement(
 	              _reactRouter.Link,
 	              { to: '/dashboard' },
 	              'Dashboard'
+	            ) : _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/login' },
+	              'Login'
 	            )
 	          )
 	        ),
@@ -37720,7 +37758,7 @@
 /* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -37731,6 +37769,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(172);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37750,22 +37790,27 @@
 	  }
 
 	  _createClass(Signup, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          "h2",
+	          'h2',
 	          null,
-	          "Signup"
+	          'Signup'
 	        ),
 	        _react2.default.createElement(
-	          "form",
-	          { className: "signupForm", onSubmit: this.props.handleFormSubmit },
-	          _react2.default.createElement("input", { type: "text", name: "username", placeholder: "username" }),
-	          _react2.default.createElement("input", { type: "password", name: "password", placeholder: "password" }),
-	          _react2.default.createElement("input", { type: "submit", value: "submit" })
+	          'form',
+	          { className: 'signupForm', onSubmit: this.props.handleFormSubmit },
+	          _react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'username' }),
+	          _react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'password' }),
+	          _react2.default.createElement('input', { type: 'submit', value: 'submit' })
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/login' },
+	          'Login'
 	        )
 	      );
 	    }
@@ -37791,6 +37836,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(172);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37819,6 +37866,18 @@
 	          'h2',
 	          null,
 	          'Login'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'loginForm', onSubmit: this.props.handleFormSubmit },
+	          _react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'username' }),
+	          _react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'password' }),
+	          _react2.default.createElement('input', { type: 'submit', value: 'submit' })
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/signup' },
+	          'Signup'
 	        )
 	      );
 	    }
@@ -38017,6 +38076,72 @@
 	}(_react.Component);
 
 	exports.default = ConfigDetail;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(172);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Logout = function (_Component) {
+	  _inherits(Logout, _Component);
+
+	  function Logout() {
+	    _classCallCheck(this, Logout);
+
+	    return _possibleConstructorReturn(this, (Logout.__proto__ || Object.getPrototypeOf(Logout)).apply(this, arguments));
+	  }
+
+	  _createClass(Logout, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // invoke the handleLogout function passed down from home parent
+	      this.props.handleLogout();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Logout'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'You are logged out'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Logout;
+	}(_react.Component);
+
+	exports.default = Logout;
 
 /***/ }
 /******/ ]);
