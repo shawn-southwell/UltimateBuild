@@ -66,7 +66,8 @@ userController.verifyUser = function(req, res, next) {
 //Config Controllers//
 //create new user config. 
 userController.createConfig = function(req, res) { //create config
-  let newConfig = req.body; //set newconfig as config enterd by user 
+  let newConfig = req.body; //set newconfig as config enterd by user
+  newConfig.refID = req.cookies.ssid;
   configModel.create(newConfig, (err, data) => { //create new record in db.
     if (err) {
       console.log('in error block')

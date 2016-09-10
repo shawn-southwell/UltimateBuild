@@ -12,6 +12,8 @@ class Home extends Component {
     super(props);
     this.state = { ssid: Cookie.load('ssid') };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    //this.setHomeState = this.setHomeState.bind(this);
   }
 
   componentDidMount() {
@@ -29,16 +31,16 @@ class Home extends Component {
   handleLogout() {
     // make ajax post call to server to logout user
     console.log('in handleLogout');
-    /*
+    
     var postUrl = '/logout';        
     $.post(postUrl, {})
-      .then((data)=> {
+      .then(() => {
         // HACK: needed to call setHomeState to allow updating of setState and route redirect
         this.setHomeState({ ssid: undefined }); // clear out ssid in state
         //this.props.history.push('/dashboard');
       })
       .catch((err) => {console.log('err', err)});
-    */
+    
   }
 
   // HACK: needed to declare a separate function to setState so that can also redirect to new route
