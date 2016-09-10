@@ -70,19 +70,19 @@
 
 	var _login2 = _interopRequireDefault(_login);
 
-	var _logout = __webpack_require__(244);
+	var _logout = __webpack_require__(241);
 
 	var _logout2 = _interopRequireDefault(_logout);
 
-	var _dashboard = __webpack_require__(241);
+	var _dashboard = __webpack_require__(242);
 
 	var _dashboard2 = _interopRequireDefault(_dashboard);
 
-	var _configForm = __webpack_require__(242);
+	var _configForm = __webpack_require__(243);
 
 	var _configForm2 = _interopRequireDefault(_configForm);
 
-	var _configDetail = __webpack_require__(243);
+	var _configDetail = __webpack_require__(244);
 
 	var _configDetail2 = _interopRequireDefault(_configDetail);
 
@@ -27188,7 +27188,7 @@
 
 	var _login2 = _interopRequireDefault(_login);
 
-	var _logout = __webpack_require__(244);
+	var _logout = __webpack_require__(241);
 
 	var _logout2 = _interopRequireDefault(_logout);
 
@@ -37914,6 +37914,72 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var Logout = function (_Component) {
+	  _inherits(Logout, _Component);
+
+	  function Logout() {
+	    _classCallCheck(this, Logout);
+
+	    return _possibleConstructorReturn(this, (Logout.__proto__ || Object.getPrototypeOf(Logout)).apply(this, arguments));
+	  }
+
+	  _createClass(Logout, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // invoke the handleLogout function passed down from home parent
+	      this.props.handleLogout();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Logout'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'You are logged out'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Logout;
+	}(_react.Component);
+
+	exports.default = Logout;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(172);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	var Dashboard = function (_Component) {
 	  _inherits(Dashboard, _Component);
 
@@ -37972,7 +38038,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38025,7 +38091,7 @@
 	exports.default = ConfigForm;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38076,72 +38142,6 @@
 	}(_react.Component);
 
 	exports.default = ConfigDetail;
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(172);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Logout = function (_Component) {
-	  _inherits(Logout, _Component);
-
-	  function Logout() {
-	    _classCallCheck(this, Logout);
-
-	    return _possibleConstructorReturn(this, (Logout.__proto__ || Object.getPrototypeOf(Logout)).apply(this, arguments));
-	  }
-
-	  _createClass(Logout, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      // invoke the handleLogout function passed down from home parent
-	      this.props.handleLogout();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Logout'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'You are logged out'
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Logout;
-	}(_react.Component);
-
-	exports.default = Logout;
 
 /***/ }
 /******/ ]);
