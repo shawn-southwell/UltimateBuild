@@ -37975,6 +37975,10 @@
 
 	var _reactRouter = __webpack_require__(172);
 
+	var _jquery = __webpack_require__(238);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37986,22 +37990,34 @@
 	var Dashboard = function (_Component) {
 	  _inherits(Dashboard, _Component);
 
-	  function Dashboard() {
+	  function Dashboard(props) {
 	    _classCallCheck(this, Dashboard);
 
-	    return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
+
+	    _this.state = { configs: [] };
+	    return _this;
 	  }
 
 	  _createClass(Dashboard, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      var _this2 = this;
+
 	      // make ajax call to get list of saved configs
 	      // assume user is authenicated for now
-
+	      var getUrl = '/configlist';
+	      _jquery2.default.get(getUrl).then(function (data) {
+	        //console.log('configlist', data);
+	        _this2.setState({ configs: data });
+	      }).catch(function (err) {
+	        console.log('err', err);
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      //console.log('in dashboard render', this.state.configs);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -38014,6 +38030,22 @@
 	          'p',
 	          null,
 	          'This is the list of saved config files...'
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          this.state.configs.map(function (config, index) {
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/dashboard/configDetail/{config._id}' },
+	                'Config # ',
+	                config._id
+	              )
+	            );
+	          })
 	        ),
 	        _react2.default.createElement(
 	          'ul',
