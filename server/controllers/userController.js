@@ -12,39 +12,39 @@ var userController = {};
 //res.USERNAME is created and subsequently passed to the client for front end routing purposes
 //res.userId is established in order to set up a new cookie.
 userController.createUser = function(req, res, next) {
-    var userObj = req.body;
-    var username = req.body.username;
-    User.findOne({username: username}, (err,foundUser) => {
-      if (err) console.log('error in checking if username already exists');
-      if (foundUser) {
-        console.log('user name already exists')
-        res.redirect(401,'/');
-        return;
-      } else {
-        User.create(userObj, (err,createdUser) => {
-          if (err) {
-            console.log('There was an error creating a new user in, userController.createUser.');
-            res.redirect('/');
-            return;
-          } else {
-            res.userId = createdUser['_id'];
-            res.USERNAME = req.body.username;
-            console.log('The new user has id', res.userId, 'and username is: ',res.USERNAME);
-            next();   
-          }
-        })
-      }
-      })   
+  var userObj = req.body;
+  var username = req.body.username;
+  User.findOne({ username: username }, (err, foundUser) => {
+    if (err) console.log('error in checking if username already exists');
+    if (foundUser) {
+      console.log('user name already exists')
+      res.redirect(401, '/');
+      return;
+    } else {
+      User.create(userObj, (err, createdUser) => {
+        if (err) {
+          console.log('There was an error creating a new user in, userController.createUser.');
+          res.redirect('/');
+          return;
+        } else {
+          res.userId = createdUser['_id'];
+          res.USERNAME = req.body.username;
+          console.log('The new user has id', res.userId, 'and username is: ', res.USERNAME);
+          next();
+        }
+      })
+    }
+  })
 };
 //verifies that a user exists in the database
 userController.verifyUser = function(req, res, next) {
   var password = req.body.password;
   var username = req.body.username;
-  console.log('user credentials',username,password)
-  User.findOne({username: username}, (err, person) => {
+  console.log('user credentials', username, password)
+  User.findOne({ username: username }, (err, person) => {
     if (!person) {
       console.log('HOMIE CANT LOGIN IF HE AINT SIGNED UP')
-      res.redirect('/'); 
+      res.redirect('/');
       return;
     }
     if (err) {
@@ -71,8 +71,9 @@ userController.createConfig = function(req, res) { //create config
 };
 
 userController.configList = function(req, res) { //query database for all configs matching user's id.
-  // console.log('ssid', req.cookies.ssid);
-  configModel.find({ refID: req.cookies.ssid }, (err, data) => { //find record then send as response.
+  console.log('id', req.params.userID);
+  let userID = req.params.userID;
+  configModel.find({ refID: userID }, (err, data) => { //find record then send as response.
     if (err) {
       console.log('in error block')
       console.log(err);
@@ -85,14 +86,14 @@ userController.configList = function(req, res) { //query database for all config
 
 //find config by id. 
 userController.findConfigByID = function(req, res) {
-  let conID = req.body._id
+  let conID = req.params.conID;
   configModel.findOne({ _id: conID }, (err, data) => { //find record then send as response.
     if (err) {
       console.log('in error block')
       console.log(err);
     } else {
       let configJSON = configTranspiler(data)
-      console.log(data);
+        // console.log(data);
       console.log(configJSON);
       res.send(configJSON); //send returned data as response. 
     }
@@ -101,10 +102,9 @@ userController.findConfigByID = function(req, res) {
 
 //deletes config from database. 
 userController.deleteConfig = function(req, res, next) {
-  let record = req.body.userID;
-  console.log(record)
-    // find record then delete.
-  configModel.remove({ _id: record }, (err, data) => {
+  let conID = req.params.conID;
+  // find record then delete.
+  configModel.remove({ _id: conID }, (err, data) => {
     if (err) {
       console.log('in error block')
       console.log(err);
