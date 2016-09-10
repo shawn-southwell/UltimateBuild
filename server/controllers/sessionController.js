@@ -33,6 +33,7 @@ sessionController.endSession = function(req, res, next){
             console.log('record deleted');
         } 
     })
+    res.clearCookie('ssid');
     next()
 }
 

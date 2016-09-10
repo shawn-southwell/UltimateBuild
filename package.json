@@ -4,8 +4,8 @@
   "description": "Wonderful tool for WebPack config file generation.",
   "main": "./server/server.js",
   "scripts": {
+    "start": "./node_modules/.bin/nodemon ./server/server.js",
     "test": "mocha",
-    "start": "node ./server/server.js",
     "build": "./node_modules/.bin/webpack -w"
   },
   "repository": {
@@ -29,10 +29,12 @@
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "jquery": "^3.1.0",
     "mongo": "^0.1.0",
     "mongoose": "^4.6.0",
     "path": "^0.12.7",
     "react": "^15.3.1",
+    "react-cookie": "^0.4.8",
     "react-dom": "^15.3.1",
     "react-router": "^2.7.0"
   },
@@ -45,6 +47,7 @@
     "chai": "^3.5.0",
     "cookie-parser": "^1.4.3",
     "mocha": "^3.0.2",
+    "nodemon": "^1.10.2",
     "supertest": "^2.0.0",
     "webpack": "^1.13.2"
   }

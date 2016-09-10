@@ -1,3 +1,5 @@
+'use strict';
+
 var User = require('./../models/userModel.js');
 var cookieController = require('./../util/cookieController.js');
 var configModel = require('./../models/configModel.js');
