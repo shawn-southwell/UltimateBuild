@@ -37763,8 +37763,8 @@
 	        _react2.default.createElement(
 	          "form",
 	          { className: "signupForm", onSubmit: this.props.handleFormSubmit },
-	          _react2.default.createElement("input", { type: "text", name: "username", placeholder: "username", onChange: this.props.handleUsernameChange }),
-	          _react2.default.createElement("input", { type: "password", name: "password", placeholder: "password", onChange: this.props.handlePasswordChange }),
+	          _react2.default.createElement("input", { type: "text", name: "username", placeholder: "username" }),
+	          _react2.default.createElement("input", { type: "password", name: "password", placeholder: "password" }),
 	          _react2.default.createElement("input", { type: "submit", value: "submit" })
 	        )
 	      );
