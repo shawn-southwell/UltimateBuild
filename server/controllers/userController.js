@@ -68,7 +68,6 @@ userController.createConfig = function(req, res) { //create config
   configModel.create(newConfig, (data) => { //create new record in db.
     res.json(data);
   });
-  res.end();
 };
 
 userController.configList = function(req, res) { //query database for all configs matching user's id.
