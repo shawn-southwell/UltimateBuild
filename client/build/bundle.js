@@ -27195,10 +27195,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 
-	    console.log('ssid', _reactCookie2.default.load('ssid'));
 	    _this.state = { ssid: _reactCookie2.default.load('ssid') };
-	    _this.handleUsernameChange = _this.handleUsernameChange.bind(_this);
-	    _this.handlePasswordChange = _this.handlePasswordChange.bind(_this);
 	    _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
 	    return _this;
 	  }
@@ -27206,83 +27203,69 @@
 	  _createClass(Home, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      if (!this.state.ssid) {
-	        // no active user
-	        // redirect to /login
-	        this.props.history.push('/login');
-	      } else {
+	      console.log('state ssid', this.state.ssid);
+	      if (this.state.ssid) {
 	        // active user
 	        // redirect to /dashboard
 	        this.props.history.push('/dashboard');
+	      } else {
+	        // no active user
+	        // redirect to /signup
+	        this.props.history.push('/signup');
 	      }
 	    }
+
+	    // HACK: needed to declare a separate function to setState so that can also redirect to new route
+
 	  }, {
-	    key: 'handleUsernameChange',
-	    value: function handleUsernameChange(e) {
-	      this.setState({ username: e.target.value });
-	    }
-	  }, {
-	    key: 'handlePasswordChange',
-	    value: function handlePasswordChange(e) {
-	      this.setState({ password: e.target.value });
+	    key: 'setHomeState',
+	    value: function setHomeState(newStateObj) {
+	      this.setState(newStateObj);
 	    }
 	  }, {
 	    key: 'handleFormSubmit',
 	    value: function handleFormSubmit(e) {
+	      var _this2 = this;
+
 	      e.preventDefault();
 
-	      /*
-	          var data =  $(e.target).serialize();
-	          data = encodeURIComponent(data);
-	          console.log('data', data);
-	          console.log('e.target.className ', e.target.className );
-	      */
-	      var username = this.state.username.trim();
-	      var password = this.state.password.trim();
+	      var userName = e.target.elements[0].value.trim();
+	      var passWord = e.target.elements[1].value.trim();
 
-	      if (!username || !password) {
+	      if (!userName || !passWord) {
+	        // validation check, both fields required
 	        return;
 	      }
 
-	      var user = { username: username, password: password };
-	      var postUrl;
+	      var user = { username: userName, password: passWord };
 
+	      var postUrl;
 	      if (e.target.className === 'signupForm') {
 	        postUrl = '/signup';
 	      } else {
 	        postUrl = '/login';
 	      }
 
-	      console.log('postUrl', postUrl);
-	      // make the ajax call
-
-	      _jquery2.default.ajax({
-	        type: 'POST',
-	        url: postUrl,
-	        data: user,
-	        dataType: 'application/json',
-	        success: function success(result) {
-	          console.log('result', result);
-	          //this.setState({urls: data});
-	        },
-	        error: function error(err) {
-	          console.log(err);
-	        }
+	      // create new user or login user by making appropriate ajax post call
+	      _jquery2.default.post(postUrl, user).then(function (data) {
+	        // HACK: needed to call setHomeState to allow updating of setState and route redirect
+	        _this2.setHomeState({ ssid: _reactCookie2.default.load('ssid') });
+	        _this2.props.history.push('/dashboard');
+	      }).catch(function (err) {
+	        console.log('err', err);
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 
-	      // Note: {this.props.children} or {childrenWithMoreProps} is a placeholder container, similar to ng-view, for displaying the content of different children routes
+	      // Note: {childrenWithMoreProps} is a placeholder container, similar to ng-view, for displaying the content of different children routes
 
 	      var childrenWithMoreProps = _react2.default.Children.map(this.props.children, function (child) {
 	        if (child.type === _signup2.default) {
 	          return _react2.default.cloneElement(child, {
-	            handleUsernameChange: _this2.handleUsernameChange,
-	            handlePasswordChange: _this2.handlePasswordChange,
-	            handleFormSubmit: _this2.handleFormSubmit
+	            handleFormSubmit: _this3.handleFormSubmit
 	          });
 	        } else {
 	          return child;

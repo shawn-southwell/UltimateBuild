@@ -8,83 +8,61 @@ import Signup from './signup.jsx';
 class Home extends Component {
   constructor(props) {
     super(props);
-    console.log('ssid', Cookie.load('ssid'));
     this.state = { ssid: Cookie.load('ssid') };
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentDidMount() {
-    if(! this.state.ssid) { // no active user
-      // redirect to /login
-      this.props.history.push('/login');
-    } else { // active user
+    console.log('state ssid', this.state.ssid);
+    if(this.state.ssid) { // active user
       // redirect to /dashboard
       this.props.history.push('/dashboard');
+    } else { // no active user
+      // redirect to /signup
+      this.props.history.push('/signup');
     }
   }
 
-  handleUsernameChange(e) {
-    this.setState({username: e.target.value});
-  }
-
-  handlePasswordChange(e) {
-    this.setState({password: e.target.value});
+  // HACK: needed to declare a separate function to setState so that can also redirect to new route
+  setHomeState(newStateObj) {
+    this.setState(newStateObj);
   }
 
   handleFormSubmit(e) {
     e.preventDefault();
 
-/*
-    var data =  $(e.target).serialize();
-    data = encodeURIComponent(data);
-    console.log('data', data);
-    console.log('e.target.className ', e.target.className );
-*/
-    var username = this.state.username.trim();
-    var password = this.state.password.trim();
+    var userName = e.target.elements[0].value.trim();
+    var passWord = e.target.elements[1].value.trim();
 
-    if(!username || !password) {
+    if(!userName || !passWord) { // validation check, both fields required
       return;
     }
 
-    var user = {username: username, password: password};
+    var user = {username: userName, password: passWord};
+    
     var postUrl;
-
     if(e.target.className === 'signupForm') {
       postUrl = '/signup';
     } else {
       postUrl = '/login'
     }
 
-    console.log('postUrl', postUrl);
-    // make the ajax call
-      
-    $.ajax({
-      type: 'POST',
-      url: postUrl,
-      data: user,
-      dataType: 'application/json',
-      success: (result) => {
-        console.log('result', result);
-        //this.setState({urls: data});
-      },
-      error: (err) => {
-        console.log(err);
-      }	
-    });
-
+    // create new user or login user by making appropriate ajax post call
+    $.post(postUrl, user)
+      .then((data)=> {
+        // HACK: needed to call setHomeState to allow updating of setState and route redirect
+        this.setHomeState({ ssid: Cookie.load('ssid') });
+        this.props.history.push('/dashboard');
+      })
+      .catch((err) => {console.log('err', err)});
   }
 
   render() {
-    // Note: {this.props.children} or {childrenWithMoreProps} is a placeholder container, similar to ng-view, for displaying the content of different children routes
+    // Note: {childrenWithMoreProps} is a placeholder container, similar to ng-view, for displaying the content of different children routes
     
     var childrenWithMoreProps = React.Children.map(this.props.children, (child) => {
       if(child.type === Signup) {
         return React.cloneElement(child, {
-          handleUsernameChange: this.handleUsernameChange,
-          handlePasswordChange: this.handlePasswordChange,
           handleFormSubmit: this.handleFormSubmit
         });
       } else {
