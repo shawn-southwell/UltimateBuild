@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -12,7 +14,8 @@ const sessionController = require('./controllers/sessionController.js');
 const mongoURI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost/test' : 'mongodb://localhost/dev';
 mongoose.connect(mongoURI);
 
-app.use(express.static(path.resolve(__dirname + '../client/')));
+app.use(express.static(path.join(__dirname, '../client/')));
+//app.use(express.static(path.resolve(__dirname + '../client/')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 

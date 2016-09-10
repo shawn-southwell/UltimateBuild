@@ -5,6 +5,7 @@ import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 're
 import Home from './home.jsx';
 import Signup from './signup.jsx';
 import Login from './login.jsx';
+import Logout from './logout.jsx';
 import Dashboard from './dashboard.jsx';
 import ConfigForm from './configForm.jsx';
 import ConfigDetail from './configDetail.jsx';
@@ -19,6 +20,7 @@ class App extends Component {
         <Route path="/" component={Home}>
           <Route path="/signup" component={Signup}/>
           <Route path="/login" component={Login}/>
+          <Route path="/logout" component={Logout}/>
           <Route path="/dashboard" component={Dashboard}>
             <Route path="/dashboard/configForm" component={ConfigForm}/>
             <Route path="/dashboard/configDetail/:id" component={ConfigDetail}/>
