@@ -5,7 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./server/server.js",
+    "start": "./node_modules/.bin/nodemon ./server/server.js",
     "build": "./node_modules/.bin/webpack -w"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "jquery": "^3.1.0",
     "mongo": "^0.1.0",
     "mongoose": "^4.6.0",
     "path": "^0.12.7",
@@ -45,6 +46,7 @@
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "mocha": "^3.0.2",
+    "nodemon": "^1.10.2",
     "webpack": "^1.13.2"
   }
 }
