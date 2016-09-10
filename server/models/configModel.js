@@ -18,7 +18,7 @@ var configSchema = new Schema({
   loader: { type: String, required: true },
   exclude: { type: String, required: true },
   presets: { type: String, required: true },
-  refID: { type: Schema.Types.ObjectId, required: true },
+  refID: { type: Schema.Types.ObjectId, ref: 'userModel' },
 });
 
 module.exports = mongoose.model('ConfigCollection', configSchema);
