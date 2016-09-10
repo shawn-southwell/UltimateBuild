@@ -96,7 +96,7 @@ userController.findConfigByID = function(req, res) {
       let configJSON = configTranspiler(data)
         // console.log(data);
       console.log(configJSON);
-      res.send(configJSON); //send returned data as response. 
+      res.json(configJSON); //send returned data as response. 
     }
   });
 };
