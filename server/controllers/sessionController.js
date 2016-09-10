@@ -14,7 +14,7 @@ sessionController.isLoggedIn = function(req, res, next){
     })
 }
 
-sessionController.startSession = function(req,res,next) {
+sessionController.startSession = function(req, res, next) {
   Session.create({cookieId: res.userId},function(err,sessionCreated){
   	if (err) {
         console.log('inside start session')
