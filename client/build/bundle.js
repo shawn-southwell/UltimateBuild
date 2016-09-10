@@ -62,23 +62,23 @@
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _signup = __webpack_require__(236);
+	var _signup = __webpack_require__(239);
 
 	var _signup2 = _interopRequireDefault(_signup);
 
-	var _login = __webpack_require__(237);
+	var _login = __webpack_require__(240);
 
 	var _login2 = _interopRequireDefault(_login);
 
-	var _dashboard = __webpack_require__(238);
+	var _dashboard = __webpack_require__(242);
 
 	var _dashboard2 = _interopRequireDefault(_dashboard);
 
-	var _configForm = __webpack_require__(239);
+	var _configForm = __webpack_require__(243);
 
 	var _configForm2 = _interopRequireDefault(_configForm);
 
-	var _configDetail = __webpack_require__(240);
+	var _configDetail = __webpack_require__(244);
 
 	var _configDetail2 = _interopRequireDefault(_configDetail);
 
@@ -27238,7 +27238,10 @@
 	exports.default = Home;
 
 /***/ },
-/* 236 */
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27291,7 +27294,7 @@
 	exports.default = Signup;
 
 /***/ },
-/* 237 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27344,7 +27347,8 @@
 	exports.default = Login;
 
 /***/ },
-/* 238 */
+/* 241 */,
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27427,7 +27431,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 239 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27480,7 +27484,7 @@
 	exports.default = ConfigForm;
 
 /***/ },
-/* 240 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
