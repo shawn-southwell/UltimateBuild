@@ -10,9 +10,17 @@ describe('Testing user related routes and controllers', () => {
         request(HOST)
           .get('/')
           .expect('Content-Type', /text\/html/)
-          .expect(400, done);
+          .expect(200, done);
       });
     });
   });
-
-});
+    describe('/createconfig', () => {
+      it('responds to valid request with 200 status and application/json content type', done => {
+        request(HOST)
+          .get('/creatconfig')
+          .set('accept','text\/html')
+          .expect('Content-Type',"text\/html//; charset=utf-8")
+          .expect(200, done);
+      });
+    })
+})

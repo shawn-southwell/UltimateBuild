@@ -14,6 +14,7 @@ var userController = {};
 userController.createUser = function(req, res, next) {
     var userObj = req.body;
     var username = req.body.username;
+    console.log('About to create a new user where USERNAME :', username, 'and PASSWORD is: ', req.body.password);
     User.findOne({username: username}, (err,foundUser) => {
       if (err) console.log('error in checking if username already exists');
       if (foundUser) {
