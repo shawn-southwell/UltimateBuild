@@ -7,22 +7,36 @@ var configTranspiler = require('./transpileController.js');
 
 var userController = {};
 
+//checks if username doesn't exist.
+//if it doesn't already exist, it writes a user to the database-
+//res.USERNAME is created and subsequently passed to the client for front end routing purposes
+//res.userId is established in order to set up a new cookie.
 userController.createUser = function(req, res, next) {
     var userObj = req.body;
-    User.create(userObj, (err,createdUser) => {
-      if (err) {
-        console.log('in error block')
-        console.error(err);
-        console.log('error in creating user');
+    var username = req.body.username;
+    User.findOne({username: username}, (err,foundUser) => {
+      if (err) console.log('error in checking if username already exists');
+      if (foundUser) {
+        console.log('user name already exists')
+        res.redirect(401,'/');
+        return;
       } else {
-        res.userId = createdUser['_id'];
-        res.USERNAME = req.body.username;
-        console.log('The new user has id', res.userId, 'and username is: ',res.USERNAME);
-        next();   
-    }
-  })
+        User.create(userObj, (err,createdUser) => {
+          if (err) {
+            console.log('There was an error creating a new user in, userController.createUser.');
+            res.redirect('/');
+            return;
+          } else {
+            res.userId = createdUser['_id'];
+            res.USERNAME = req.body.username;
+            console.log('The new user has id', res.userId, 'and username is: ',res.USERNAME);
+            next();   
+          }
+        })
+      }
+      })   
 };
-
+//verifies that a user exists in the database
 userController.verifyUser = function(req, res, next) {
   var password = req.body.password;
   var username = req.body.username;
