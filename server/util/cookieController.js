@@ -9,18 +9,3 @@ cookieController.setSSIDCookie = function(req, res, next) {
 }
 
 module.exports = cookieController;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = cookieController;
