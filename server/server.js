@@ -33,8 +33,8 @@ app.post('/login',
   (req, res) => res.json({username:res.USERNAME}))
 
 app.post('/logout',
-  userController.verifyUser,
-  sessionController.endSession)
+ sessionController.endSession,
+ (req, res) => res.end())
 
 //Config Routes//
 app.post('/createconfig', userController.createConfig);
