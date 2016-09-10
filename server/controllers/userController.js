@@ -67,8 +67,14 @@ userController.verifyUser = function(req, res, next) {
 //create new user config. 
 userController.createConfig = function(req, res) { //create config
   let newConfig = req.body; //set newconfig as config enterd by user 
-  configModel.create(newConfig, (data) => { //create new record in db.
-    res.json(data);
+  configModel.create(newConfig, (err, data) => { //create new record in db.
+    if (err) {
+      console.log('in error block')
+      console.log(err);
+    } else {
+      console.log('data', data)
+      res.json(data); //send returned data as response. 
+    }
   });
 };
 
@@ -114,7 +120,6 @@ userController.deleteConfig = function(req, res, next) {
       console.log('record deleted')
     }
   });
-  res.end();
 };
 
 module.exports = userController;
